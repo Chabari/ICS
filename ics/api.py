@@ -22,7 +22,7 @@ def create_sales_invoice(doc, method):
     sales_invoice.discount_amount = 0
     sales_invoice.cost_center = doc.cost_center
     sales_invoice.customer = _customer.name if _customer else None
-    sales_invoice.set_warehouse = "Stores - TE"
+    sales_invoice.set_warehouse = "Stores - ICS"
     sales_invoice.due_date = doc.schedule_date
     sales_invoice.posting_date = doc.transaction_date
     sales_invoice.posting_time = nowtime()
