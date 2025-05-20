@@ -122,13 +122,12 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+
+    "Purchase Order": {
+        "on_submit": "ics.api.create_sales_invoice",
+    },
+}
 
 # Scheduled Tasks
 # ---------------
@@ -212,6 +211,28 @@ app_license = "mit"
 # 		"doctype": "{doctype_4}"
 # 	}
 # ]
+
+
+fixtures = [
+
+    {
+        "doctype": "Custom Field",
+        "filters": [
+            [
+                "name",
+                "in",
+                (
+                    "Sales Invoice-custom_sales_agents",
+                    "Sales Invoice-custom_section_break_lxc55",
+                    "Purchase Order-custom_sales_agents",
+                    "Purchase Order-custom_section_break_ouxzj"
+                ),
+            ]
+        ],
+    },
+    
+]
+
 
 # Authentication and authorization
 # --------------------------------
