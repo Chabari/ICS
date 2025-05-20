@@ -225,7 +225,8 @@ fixtures = [
                     "Sales Invoice-custom_sales_agents",
                     "Sales Invoice-custom_section_break_lxc55",
                     "Purchase Order-custom_sales_agents",
-                    "Purchase Order-custom_section_break_ouxzj"
+                    "Purchase Order-custom_section_break_ouxzj",
+                    "Customer-custom_phone_number"
                 ),
             ]
         ],

@@ -9,13 +9,13 @@ def create_sales_invoice(doc, method):
     _customer = None
     if doc.shipping_address:
         address = frappe.get_doc("Address", doc.shipping_address)
-        _customer = frappe.db.get_value("Customer", {'customer_name': address.address_title, 'mobile_no': address.phone}, ['name'], as_dict=1)
+        _customer = frappe.db.get_value("Customer", {'customer_name': address.address_title, 'custom_phone_number': address.phone}, ['name'], as_dict=1)
         if not _customer:
             _customer = frappe.new_doc("Customer")
             _customer.customer_name = address.address_title
             _customer.customer_group = "All Customer Groups"
             _customer.territory = "All Territories"
-            _customer.mobile_no = address.phone
+            _customer.custom_phone_number = address.phone
             _customer.save(ignore_permissions=True)
                 
     sales_invoice = frappe.new_doc("Sales Invoice")
