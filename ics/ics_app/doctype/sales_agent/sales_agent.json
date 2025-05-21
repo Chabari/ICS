@@ -6,19 +6,11 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "user",
+  "full_name",
   "column_break_vjft",
-  "full_name"
+  "phone_number"
  ],
  "fields": [
-  {
-   "fieldname": "user",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_preview": 1,
-   "label": "User",
-   "options": "User"
-  },
   {
    "fieldname": "column_break_vjft",
    "fieldtype": "Column Break"
@@ -32,12 +24,19 @@
    "in_list_view": 1,
    "in_preview": 1,
    "label": "Full Name"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Phone Number"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-20 07:55:32.429727",
+ "modified": "2025-05-21 06:25:49.661760",
  "modified_by": "Administrator",
  "module": "ICS App",
  "name": "Sales Agent",

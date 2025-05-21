@@ -5,6 +5,21 @@ from frappe.utils import flt, nowtime
 def get_main_company():
     return frappe.get_doc("Company", get_default_company())
 
+def get_price_rate(item_code):
+    item_prices_data = frappe.get_all(
+        "Item Price",
+        fields=["item_code", "price_list_rate", "currency", "uom"],
+        filters={
+            "item_code": ["in", item_code],
+            "selling": 1,
+        },
+    )
+    if len(item_prices_data) > 0:
+        itemPrice = item_prices_data[0]
+        if itemPrice:
+            return itemPrice.get('price_list_rate')
+    return False
+        
 def create_sales_invoice(doc, method):
     _customer = None
     if doc.shipping_address:
@@ -28,8 +43,15 @@ def create_sales_invoice(doc, method):
     sales_invoice.posting_time = nowtime()
     sales_invoice.debit_to = get_main_company().default_receivable_account
     order_items = []
+    total = 0
     for itm in doc.items:
         item_doc = frappe.get_doc('Item', itm.item_code)
+        rate = get_price_rate(itm.item_code)
+        if rate == False:
+            rate = itm.get('rate')
+            
+        amount = rate * itm.get('qty')
+        
         order_items.append(frappe._dict({
             'item_code': item_doc.item_code,
             'item_name': item_doc.item_name,
@@ -37,20 +59,21 @@ def create_sales_invoice(doc, method):
             'item_group': item_doc.item_group,
             'qty': itm.get('qty'),
             'uom': item_doc.stock_uom,
-            'rate': itm.get('rate'),
-            'amount': itm.get('amount'),
+            'rate': rate,
+            'amount': amount,
             'income_account': get_main_company().default_income_account
         }))
+        total += amount
             
     sales_invoice.set("items", order_items)
     sales_invoice.is_pos = 1
-    sales_invoice.paid_amount = doc.total
+    sales_invoice.paid_amount = total
     
     payments = []
         
     payments.append(frappe._dict({
         'mode_of_payment': "Cash",
-        'amount': doc.total,
+        'amount': total,
         'type': "Cash",
         'default': 1
     }))
@@ -60,7 +83,7 @@ def create_sales_invoice(doc, method):
         sales_agents = []
         for itm in doc.custom_sales_agents:
             sales_agents.append(frappe._dict({
-                'user': itm.user,
+                'phone_number': itm.phone_number,
                 'full_name': itm.full_name,
             }))
                 
