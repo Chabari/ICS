@@ -6,9 +6,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "full_name",
+  "agent",
   "column_break_vjft",
-  "phone_number"
+  "full_name"
  ],
  "fields": [
   {
@@ -16,7 +16,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "user.full_name",
+   "fetch_from": "agent.full_name",
    "fieldname": "full_name",
    "fieldtype": "Data",
    "in_filter": 1,
@@ -26,17 +26,18 @@
    "label": "Full Name"
   },
   {
-   "fieldname": "phone_number",
-   "fieldtype": "Data",
+   "fieldname": "agent",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "in_preview": 1,
-   "label": "Phone Number"
+   "label": "Agent",
+   "options": "Sale Agent"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-21 06:25:49.661760",
+ "modified": "2025-05-22 05:05:21.411790",
  "modified_by": "Administrator",
  "module": "ICS App",
  "name": "Sales Agent",

@@ -83,7 +83,7 @@ def create_sales_invoice(doc, method):
         sales_agents = []
         for itm in doc.custom_sales_agents:
             sales_agents.append(frappe._dict({
-                'phone_number': itm.phone_number,
+                'agent': itm.agent,
                 'full_name': itm.full_name,
             }))
                 
